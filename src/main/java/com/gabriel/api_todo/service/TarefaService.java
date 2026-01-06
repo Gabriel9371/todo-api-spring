@@ -2,6 +2,7 @@ package com.gabriel.api_todo.service;
 
 import com.gabriel.api_todo.model.Tarefa;
 import com.gabriel.api_todo.repository.TarefaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +45,19 @@ public class TarefaService {
             return true;
         }
         return false;
+    }
+
+    public Optional<Tarefa> concluir(Long id){
+        Optional<Tarefa> tarefaOpt = repository.findById(id);
+
+        if(tarefaOpt.isPresent()){
+            Tarefa tarefa = tarefaOpt.get();
+            tarefa.setConcluida(true);
+            repository.save(tarefa);
+            return  Optional.of(tarefa);
+        }
+
+        return Optional.empty();
     }
 
 

@@ -3,6 +3,7 @@ package com.gabriel.api_todo.controller;
 
 import com.gabriel.api_todo.model.Tarefa;
 import com.gabriel.api_todo.service.TarefaService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class TarefaController {
     }
 
     @PostMapping
-    public ResponseEntity<Tarefa> criar(@RequestBody Tarefa tarefa){
+    public ResponseEntity<Tarefa> criar(@Valid @RequestBody Tarefa tarefa){
         Tarefa salva = service.salvar(tarefa);
         return ResponseEntity.status(201).body(salva);
     }
@@ -49,6 +50,12 @@ public class TarefaController {
         }
 
         return  ResponseEntity.notFound().build();
+    }
+
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Tarefa> concluir(@PathVariable Long id){
+        return service.concluir(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
 
