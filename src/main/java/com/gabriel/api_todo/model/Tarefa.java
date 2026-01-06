@@ -41,4 +41,12 @@ public class Tarefa {
     public void setConcluida(boolean concluida) {
         this.concluida = concluida;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 }
