@@ -60,5 +60,9 @@ public class TarefaService {
         return Optional.empty();
     }
 
+    public List<Tarefa> listarPorStatus(boolean concluida){
+        return repository.findByConcluida(concluida);
+    }
+
 
 }

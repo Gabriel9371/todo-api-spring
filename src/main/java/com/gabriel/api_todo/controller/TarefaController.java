@@ -19,10 +19,7 @@ public class TarefaController {
     }
 
 
-    @GetMapping
-    public List<Tarefa> listar(){
-        return service.listar();
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Tarefa> buscarPorID(@PathVariable Long id){
@@ -56,6 +53,15 @@ public class TarefaController {
     @PatchMapping("/{id}")
     public ResponseEntity<Tarefa> concluir(@PathVariable Long id){
         return service.concluir(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+
+    @GetMapping
+    public List<Tarefa> listarConcluida(@RequestParam(required = false) boolean concluida){
+        if(concluida){
+            return service.listarPorStatus(concluida);
+        }
+        return service.listar();
     }
 
 
